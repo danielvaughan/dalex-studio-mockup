@@ -93,12 +93,12 @@
   },
   "percy": {
     "canvas": [
-      40,
-      32
+      60,
+      48
     ],
     "anchor": [
-      20,
-      30
+      30,
+      46
     ],
     "frames": [
       "walk-contact",
@@ -119,7 +119,7 @@
       1983,
       793
     ],
-    "normalization": "Equal source grid to fixed 40x32 cells; no per-frame recentering.",
+    "normalization": "Equal source grid to fixed 60x48 cells; no per-frame recentering.",
     "timing_ms": 140,
     "runtime": "Browser only; SCUMM costume compilation pending."
   },
@@ -155,5 +155,22 @@
     "palette_entries_max": 25,
     "reference": "Microvitec Cub 1431-MS 14-inch RGB; reference photo from retrorepairsandrefurbs.com (not redistributed).",
     "room_view": "Existing rear computer remains painted; close-up uses this sprite."
+  },
+  "microvitec-cub-room": {
+    "canvas": [
+      128,
+      110
+    ],
+    "aperture": [
+      8,
+      12,
+      112,
+      84
+    ],
+    "room_position": [
+      2,
+      240
+    ],
+    "palette_entries_max": 25
   }
 }

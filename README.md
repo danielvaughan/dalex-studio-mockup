@@ -2,13 +2,13 @@
 
 [Play the public demo](https://danielvaughan.com/dalex-studio-mockup/)
 
-A native 640 × 480 adventure-style interface for a 1987 Manchester games studio.
+A native 640 × 480 adventure-style interface for a 1987 Manchester games studio. The room is composed around a front-facing Microvitec Cub monitor and a cassette-art cabinet, so real game frames and cover art sit naturally in the scene.
 
 - Click the cassette shelf at the back left, then a cassette cover to play its Spectrum game.
 - Archived media-kit builds: Mower Mayhem M6, Antigravity M4, Tiger Gorilla M4. Artwork and tapes come from matching kits; tape SHA-256 is checked before loading.
 - Click the game picture for keyboard input. Controls appear beside the screen. For Tiger Gorilla select 2 (keyboard), then Space. Wait for the game's title screen before starting.
 - Pause, sound, restart (two clicks) and Back are pixel controls. Escape returns to the library. Leaving or switching tabs pauses emulation and releases keys. Reopening the same cassette resumes it.
-- Click the rear computer to reopen the selected game. Its room screen retains the last game frame.
+- Click the front-facing Cub monitor to reopen the selected game. Its 112 × 84 room screen shows a matching media-kit screenshot before play and retains the last game frame afterwards. Labels distinguish the two.
 - Click Ken's leather ledger on the left desk for four accounts pages. These figures are **sample API estimates**, not private accounts or actual bills. STALE demonstrates an outage.
 - Click Percy for his character detail. His new native sprites follow the owner's photographic reference.
 - Click the production board, then a card. Demo Update moves a sample milestone between Playtest and Sign-off. The eight stages end in Release and independent Magazine review.
@@ -18,7 +18,7 @@ A native 640 × 480 adventure-style interface for a 1987 Manchester games studio
 
 All visible text and controls render into a 640 × 480 canvas using bitmap glyphs.
 The complete bordered JSSpeccy picture is 320 × 240, shown without cropping inside a Microvitec Cub 14-inch RGB monitor sprite (360 × 304).
-Percy's cells are 40 × 32; ledger states 64 × 40; cassette cases 24 × 40; loose tape 56 × 32.
+Percy's cells are 60 × 48; ledger states 64 × 40; cassette cases 24 × 40; loose tape 56 × 32.
 See `sprites/manifest.json` for sizes and palette limits, and `library/manifest.json` for game/art provenance.
 Generated scenery remains concept art; this is not a compiled ScummVM game or a verified indexed room palette.
 

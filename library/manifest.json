@@ -46,7 +46,10 @@
         "M",
         "Music on / off"
       ]
-    ]
+    ],
+    "preview": "library/mower-mayhem-preview.png",
+    "preview_source": "examples/mower-mayhem/game/media-kit/m6/shots/S-23.png",
+    "preview_sha256": "ff30291b7d3dae69961b8c46ef75cdaef466193b12eb1ed802bc9a14786174d8"
   },
   {
     "id": "antigravity",
@@ -87,7 +90,10 @@
         "M",
         "Music on/off"
       ]
-    ]
+    ],
+    "preview": "library/antigravity-preview.png",
+    "preview_source": "examples/antigravity/game/media-kit/m4/shots/S-1.png",
+    "preview_sha256": "e5364fc62d5ffa1f90baa13543b84451bd79c2ea884fe12207d7e8b8d6fb5cda"
   },
   {
     "id": "tiger-gorilla",
@@ -136,6 +142,9 @@
         "Z",
         "Choose start zone (title)"
       ]
-    ]
+    ],
+    "preview": "library/tiger-gorilla-preview.png",
+    "preview_source": "examples/tiger-gorilla/game/media-kit/m4/shots/S-26.png",
+    "preview_sha256": "18169b21a986c61b7f7a6b19d21c3752697c76642629ce674160c19cf20539bb"
   }
 ]

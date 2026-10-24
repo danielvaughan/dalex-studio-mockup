@@ -104,7 +104,7 @@ closeArt.onload=drawGameViews;drawGameViews();
 
 // Office and controls use the same native bitmap renderer as the close-ups.
 const officeCanvas=document.createElement('canvas');officeCanvas.width=640;officeCanvas.height=480;officeCanvas.setAttribute('aria-hidden','true');document.getElementById('scene').prepend(officeCanvas);
-const officeArt=new Image();officeArt.src='production-office-art.png';
+const officeArt=new Image();officeArt.src='production-office-art.png?v=room2';
 function drawOffice(){
  const c=officeCanvas.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#211912';c.fillRect(0,0,640,480);
  if(officeArt.complete&&officeArt.naturalWidth)c.drawImage(officeArt,0,0,640,400);
@@ -120,7 +120,7 @@ function drawOffice(){
  c.fillStyle='#26351f';c.fillRect(548,463,83,14);pixelText(c,'DEMO UPDATE',555,467,'#c9d2ad');
 }
 const closeupsOnly=drawGameViews;drawGameViews=function(){closeupsOnly();drawOffice()};
-new MutationObserver(drawOffice).observe(document.getElementById('controls'),{subtree:true,childList:true,characterData:true,attributes:true});
+new MutationObserver(()=>{drawOffice();drawFocus()}).observe(document.getElementById('controls'),{subtree:true,childList:true,characterData:true,attributes:true});
 officeArt.onload=drawOffice;drawOffice();
 document.getElementById('controls').append(document.getElementById('demo'));
 let pixelHover=null;

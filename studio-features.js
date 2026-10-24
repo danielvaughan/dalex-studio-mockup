@@ -1,8 +1,9 @@
 /* Native-pixel UI extensions. JSSpeccy is a browser prototype, not a SCUMM opcode. */
-const shelfCovers = cassetteLibrary.map(g => {const i=new Image();i.src=g.cover;i.onload=()=>drawGameViews();return i});
-const percyArt=new Image();percyArt.src='sprites/percy-strip.png';
+const shelfCovers = cassetteLibrary.map(g => {const i=new Image();i.src=g.cover+'?v=room2';i.onload=()=>drawGameViews();return i});
+const roomPreviews=cassetteLibrary.map(g=>{const i=new Image();i.src=g.preview+'?v=room2';i.onload=()=>drawGameViews();return i});
+const percyArt=new Image();percyArt.src='sprites/percy-strip.png?v=room2';
 const propSprites={};
-for(const name of ['ledger-closed','ledger-open','cassette-case','cassette-tape','microvitec-cub']){const i=new Image();i.src='sprites/'+name+'.png';i.onload=()=>drawGameViews();propSprites[name]=i}
+for(const name of ['ledger-closed','ledger-open','cassette-case','cassette-tape','microvitec-cub','microvitec-cub-room']){const i=new Image();i.src='sprites/'+name+'.png?v=room2';i.onload=()=>drawGameViews();propSprites[name]=i}
 function spriteReady(i){return i.complete&&i.naturalWidth}
 let ledgerPage=0, ledgerStale=false, chosenCassette=0, emulator=null, emulatorAPI=null;
 let playerStatus='SELECT A CASSETTE', playerFrames=0, soundEnabled=true, restartArmed=false, loadingToken=0;
@@ -14,6 +15,7 @@ const featureControls={};
 function hotspot(parent,id,label,x,y,w,h,fn){
  const b=document.createElement('button');b.id=id;b.textContent=label;b.setAttribute('aria-label',label);
  b.style.cssText=`position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;opacity:0;z-index:4;padding:0;border:0`;
+ if(parent.id==='scene')for(const event of ['pointerenter','focus'])b.addEventListener(event,()=>{document.getElementById('sentence').textContent=label});
  b.onclick=fn;parent.append(b);return b;
 }
 for(const id of ['libraryview','playerview','ledgerview','percyview']){
@@ -31,9 +33,9 @@ show=function(name){
  drawGameViews();
 };
 function openFeature(name){show(name);featureControls[name].querySelector('button')?.focus()}
-hotspot(document.getElementById('scene'),'cassette-shelf','Look at the cassette shelf',214,91,82,63,()=>openFeature('libraryview'));
-hotspot(document.getElementById('scene'),'accounts-ledger','Open Ken\'s accounts ledger',224,318,64,40,()=>openFeature('ledgerview'));
-hotspot(document.getElementById('scene'),'computer-screen','Look at the game monitor',132,169,37,30,()=>startCassette(chosenCassette));
+hotspot(document.getElementById('scene'),'cassette-shelf','Look at the cassette shelf',89,78,133,76,()=>openFeature('libraryview'));
+hotspot(document.getElementById('scene'),'accounts-ledger','Open Ken\'s accounts ledger',529,322,64,40,()=>openFeature('ledgerview'));
+hotspot(document.getElementById('scene'),'computer-screen','Look at the game monitor',2,240,128,110,()=>startCassette(chosenCassette));
 const percyButton=hotspot(document.getElementById('scene'),'percy-cat','Look at Percy the office cat',340,355,35,30,()=>openFeature('percyview'));
 cassetteLibrary.forEach((g,i)=>hotspot(featureControls.libraryview,'cassette-'+g.id,'Play '+g.title,51+i*184,68,164,278,()=>startCassette(i)));
 hotspot(featureControls.libraryview,'library-back','Go back to office',222,430,196,28,()=>show('scene'));
@@ -106,7 +108,7 @@ function drawLibrary(c){
 }
 function drawPlayer(c){
  roomBase(c);const g=cassetteLibrary[chosenCassette];
- const monitor=propSprites['microvitec-cub'];if(spriteReady(monitor))c.drawImage(monitor,10,49,360,304);else rect(c,10,49,360,304,'#242420');
+ const monitor=propSprites['microvitec-cub','microvitec-cub-room'];if(spriteReady(monitor))c.drawImage(monitor,10,49,360,304);else rect(c,10,49,360,304,'#242420');
  if(emulator?.canvas)c.drawImage(emulator.canvas,30,79,320,240);else pixelWrap(c,playerStatus,45,180,280,'#c4d69a',1,13);
  pixelText(c,'MICROVITEC CUB / 14-INCH RGB',30,360,'#e0c997');
  paper(c,384,44,240,340,'#decda3');pixelWrap(c,g.title,398,59,214,'#40301e',2,19);
@@ -135,7 +137,7 @@ function drawLedger(c){
 }
 function drawPercy(c){
  roomBase(c);paper(c,95,45,450,300,'#dec89b');pixelText(c,'PERCY',230,65,'#4b3420',3);
- if(percyArt.complete&&percyArt.naturalWidth)c.drawImage(percyArt,160,0,40,32,126,111,120,96);
+ if(percyArt.complete&&percyArt.naturalWidth)c.drawImage(percyArt,240,0,60,48,126,111,120,96);
  pixelWrap(c,'Dark face and paws. Pale green-gold eyes. Warm-monitor inspector.',260,123,250,'#503b26',1,15);
  pixelWrap(c,'MRRP? Percy has found a warm spot near the computers.',130,225,380,'#503b26',2,20);
  pixelText(c,'CAT SOUNDS ONLY. NO HUMAN DIALOGUE.',130,315,'#876640');footer(c,'LOOK AT PERCY',[['GO BACK',222,196]]);
@@ -143,18 +145,24 @@ function drawPercy(c){
 const beforeFeatureOffice=drawOffice;
 drawOffice=function(){
  beforeFeatureOffice();const c=officeCanvas.getContext('2d');c.imageSmoothingEnabled=false;
- // Registered cassette shelf and ledger painted at native size over existing furniture.
- rect(c,214,91,82,63,'#39261a');rect(c,214,145,82,8,'#9a6336');
- cassetteLibrary.forEach((g,i)=>{const x=218+i*24;const shell=propSprites['cassette-case'];if(spriteReady(shell))c.drawImage(shell,x,104,24,40);const art=shelfCovers[i];if(spriteReady(art))c.drawImage(art,x+4,116,13,21)});
- const ledger=propSprites[pixelHover?.id==='accounts-ledger'?'ledger-open':'ledger-closed'];if(spriteReady(ledger))c.drawImage(ledger,224,318,64,40);
- const tape=propSprites['cassette-tape'];if(spriteReady(tape))c.drawImage(tape,492,342,56,32);
- if(emulator?.canvas){c.drawImage(emulator.canvas,136,174,24,18)}
+ // Front-facing object sockets measured against the recomposed room.
+ cassetteLibrary.forEach((g,i)=>{const x=95+i*43;const shell=propSprites['cassette-case'];if(spriteReady(shell))c.drawImage(shell,2,9,20,29,x,84,36,55);const art=shelfCovers[i];if(spriteReady(art))c.drawImage(art,x+3,91,26,43)});
+ const ledger=propSprites[pixelHover?.id==='accounts-ledger'?'ledger-open':'ledger-closed'];if(spriteReady(ledger))c.drawImage(ledger,529,322,64,40);
+ const tape=propSprites['cassette-tape'];if(spriteReady(tape))c.drawImage(tape,234,334,56,32);
+ const monitor=propSprites['microvitec-cub-room'];if(spriteReady(monitor))c.drawImage(monitor,2,240,128,110);
+ const preview=emulator?.canvas||roomPreviews[chosenCassette];
+ if(preview&&(preview.tagName==='CANVAS'||spriteReady(preview))){
+  const w=preview.width||preview.naturalWidth,h=preview.height||preview.naturalHeight;
+  const scale=Math.min(112/w,84/h),dw=Math.floor(w*scale),dh=Math.floor(h*scale);
+  rect(c,10,252,112,84,'#000');c.drawImage(preview,10+Math.floor((112-dw)/2),252+Math.floor((84-dh)/2),dw,dh);
+ }
+ pixelText(c,emulator?'LAST GAME FRAME':'KIT SCREENSHOT',8,353,'#e8d1a0');
  const step=officeMotion?officeTick%140:50;
  const walking=step<25||(step>=70&&step<95),left=step>=70;
  const x=step<25?330+step*2:step<70?378:step<95?378-(step-70)*2:330;
  const frame=walking?Math.floor(step/2)%4:(step%32===0?5:step>110?6:4);
- if(spriteReady(percyArt)){c.save();if(left&&walking){c.translate(x+40,0);c.scale(-1,1);c.drawImage(percyArt,frame*40,0,40,32,0,352,40,32)}else c.drawImage(percyArt,frame*40,0,40,32,x,352,40,32);c.restore()}
- percyButton.style.left=x+'px';percyButton.style.top='352px';percyButton.style.width='40px';percyButton.style.height='32px';
+ if(spriteReady(percyArt)){c.save();if(left&&walking){c.translate(x+60,0);c.scale(-1,1);c.drawImage(percyArt,frame*60,0,60,48,0,340,60,48)}else c.drawImage(percyArt,frame*60,0,60,48,x,340,60,48);c.restore()}
+ percyButton.style.left=x+'px';percyButton.style.top='340px';percyButton.style.width='60px';percyButton.style.height='48px';
 
 };
 const beforeFeatureViews=drawGameViews;
