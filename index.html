@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dalex — Production office mockup</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#12100e;color:#e8d7ad;font-family:monospace}body{min-height:100vh;display:grid;place-items:center}
+button,a{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid #fff1a0;outline-offset:2px}
+#screen{position:relative;width:640px;height:480px;overflow:hidden;background:#211912;transform-origin:center;image-rendering:pixelated}
+.room{position:absolute;inset:0 0 80px;background:url('production-office-art.png') center/640px 400px no-repeat}
+#wall{position:absolute;left:339px;top:62px;width:208px;height:150px;border:0;padding:0;background:transparent;color:#36251b;text-align:left}
+#wall:hover{outline:1px solid #ffe8a5;box-shadow:0 0 9px #ffc66a55}
+.walltitle{position:absolute;top:0;left:0;right:0;height:17px;text-align:center;font:bold 8px Georgia,serif;letter-spacing:.2px;background:#e8d2a8;border-bottom:2px solid #725033;padding-top:3px}
+.wallcolumns{position:absolute;top:17px;left:0;right:0;height:79px;display:grid;grid-template-columns:repeat(8,1fr)}
+.wallcol{position:relative;border-right:1px solid #76533088;padding:3px 2px}.wallcol:last-child{border:0}
+.wallhead{display:block;background:#e6cf9f;box-shadow:1px 1px #513c2b88;text-align:center;padding:3px 0;font:bold 7px monospace}
+.wallcard{display:block;position:absolute;left:3px;top:24px;width:20px;min-height:23px;padding:4px 1px 2px;text-align:center;background:#e7d18c;border:1px solid #6a4b2f;box-shadow:2px 2px #50391f66;font:bold 7px/1.2 monospace}
+.wallcard:before,.card:before{content:'';position:absolute;width:4px;height:4px;top:1px;left:50%;background:#9d3e2b;box-shadow:1px 1px #4a281e}
+.wallcard.mm{top:24px;background:#f0ba85}.wallcard.ag{top:49px;background:#b8d3cc}.wallcard.tg{top:49px;background:#cad49c}
+.person{position:absolute;border:0;background:transparent;color:transparent}.person:hover{border-bottom:1px dotted #f5d68d}
+#mo{left:470px;top:160px;width:100px;height:150px}#gareth{left:95px;top:208px;width:107px;height:102px}
+#controls{position:absolute;bottom:0;left:0;right:0;height:80px;background:#11170e;border-top:3px solid #71613a}
+#sentence{height:20px;padding:3px 10px;color:#f0cf89;font:bold 11px monospace;background:#252318;border-bottom:1px solid #413e28}
+#verbs{position:absolute;left:7px;top:23px;width:310px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.verb{border:0;background:#203019;color:#8cba59;font:bold 16px/1 monospace;height:23px;text-shadow:1px 1px #000}
+.verb.active,.verb:hover{color:#ffe69c;background:#33432a}
+#aside{position:absolute;left:330px;right:9px;top:25px;font:9px/1.4 monospace;color:#baae8b}
+#aside strong{color:#f0d6a0}#demo{float:right;margin-top:3px;border:1px solid #6c7251;background:#26351f;color:#c9d2ad;padding:2px 5px;font-size:8px}
+.sample{font-size:7px;color:#a99b7e;margin-top:5px;letter-spacing:.4px}
+.view{position:absolute;inset:0;background:#211e17f5;padding:14px 16px;color:#e9d5a9}
+.hidden{display:none!important}.heading{display:flex;align-items:center;justify-content:space-between;height:35px}
+h1{font:bold 21px Georgia,serif;margin:0;color:#f0dca7}.subtitle{font-size:9px;color:#b8a885;margin:4px 0 12px;letter-spacing:.5px}
+.button{border:1px solid #a88752;border-bottom-width:3px;background:#463a27;color:#f0dca9;padding:6px 9px;font:bold 9px monospace;text-decoration:none;cursor:pointer}
+.button:hover{background:#655032}
+#largeboard{display:grid;grid-template-columns:repeat(8,1fr);height:278px;border:5px solid #765035;box-shadow:inset 0 0 0 2px #b7834e,3px 4px #0c0a08;background:#b58b58;padding:5px 3px;gap:0}
+.column{border-right:1px solid #795b39;padding:0 3px}.column:last-child{border:0}
+.column h2{margin:0 0 12px;padding:7px 0;background:#e0c89b;color:#38291e;text-align:center;font:bold 8px monospace;box-shadow:1px 2px #6a4b32}
+.card{position:relative;width:100%;margin-bottom:8px;text-align:left;border:1px solid #6d5132;background:#e6d393;color:#30291e;box-shadow:2px 3px #674c32;padding:10px 4px 7px;font:bold 9px/1.3 monospace}
+.card.mm{background:#efbb89}.card.ag{background:#bfd6ce}.card.tg{background:#cbd6a7}.card small{display:block;margin-top:5px;font-size:8px}.card:hover{outline:2px solid #fff2ba;outline-offset:1px}
+#boardnote{margin-top:14px;background:#342c20;border-left:3px solid #ba9960;padding:10px 12px;font:11px/1.5 Georgia,serif;color:#ddc79f}
+.bottomline{position:absolute;bottom:15px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;color:#ae9e7c;font:8px monospace}
+#ticketpaper{margin-top:9px;height:326px;border:5px solid #765035;background:#e6d8b4;color:#382e22;padding:15px 18px;box-shadow:3px 4px #0c0a08}
+#ticketpaper h2{font:bold 23px Georgia,serif;margin:9px 0 16px}.eyebrow{font:bold 9px monospace;color:#7d5a37}
+.facts{display:grid;grid-template-columns:100px 1fr;gap:9px 10px;font:11px monospace}.facts b{color:#82613b}
+.evidence{margin-top:18px;border-top:1px solid #a78c60;padding-top:12px;font:12px/1.5 Georgia,serif}
+#issue-link{display:inline-block;margin-top:14px}.notice{font-size:9px;color:#91754b;margin-top:10px}
+/* The close-ups are painted game views; DOM controls remain for input/accessibility. */
+.view{padding:0;background:#251a10}
+.view>canvas{position:absolute;inset:0;z-index:1;pointer-events:none;image-rendering:pixelated}
+.view>:not(canvas){opacity:0}
+.view .heading{position:static;height:0}
+.view .subtitle{display:none}
+#largeboard{position:absolute;left:36px;top:49px;width:568px;height:245px;z-index:2;border:0;padding:0;gap:0;box-shadow:none}
+.column{border:0;padding:0 6px 0 0}
+.column h2{height:22px;margin:0 0 13px;padding:0}
+.card{height:82px;margin:0 0 10px;padding:0}
+#boardnote{pointer-events:none}
+.bottomline{position:static}
+#ticketpaper{position:static;margin:0;padding:0;border:0;box-shadow:none}
+#back-room,#back-board{position:absolute;left:220px;top:430px;width:200px;height:26px;z-index:3;margin:0;padding:0}
+#board-demo{position:absolute;left:430px;top:430px;width:200px;height:26px;z-index:3;padding:0}
+#issue-link{position:absolute;left:10px;top:430px;width:200px;height:26px;margin:0;z-index:3;padding:0}
+#scene>:not(canvas){opacity:0}
+#scene>canvas{position:absolute;inset:0;pointer-events:none;image-rendering:pixelated}
+#verbs{width:338px;grid-template-columns:repeat(3,110px);gap:3px}
+#aside{left:350px}
+#controls>#demo{position:absolute;left:548px;top:60px;width:83px;height:14px;float:none;margin:0;padding:0;opacity:0}
+#screen{cursor:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" shape-rendering="crispEdges"%3E%3Cpath fill="%2315100c" d="M0 0h3v2h2v2h2v2h2v2h2v2H7v5H4v-4H0z"/%3E%3Cpath fill="%23f3df9e" d="M1 1h1v2h2v2h2v2h2v2H5v4H4V9H1z"/%3E%3C/svg%3E') 0 0,default}
+#screen button,#screen a{cursor:inherit}
+</style>
+<div id="screen">
+ <section id="scene" aria-label="Dalex production office">
+  <div class="room"></div>
+  <button id="wall" aria-label="Look at the production board"><div class="walltitle">DALEX · DEVELOPMENT MILESTONES</div><div class="wallcolumns" id="wallcolumns"></div></button>
+  <button class="person" id="mo" aria-label="Talk to Mo">Mo</button><button class="person" id="gareth" aria-label="Look at Gareth">Gareth</button>
+  <div id="controls">
+   <div id="sentence">Look at the production board</div>
+   <div id="verbs"><button class="verb active">LOOK AT</button><button class="verb">TALK TO</button><button class="verb">USE</button><button class="verb">OPEN</button><button class="verb">WALK TO</button><button class="verb">INVENTORY</button></div>
+   <div id="aside"><strong>MO · PRODUCTION</strong><br><span id="speech">“Every game has its place on the board.”</span><button id="demo">DEMO UPDATE</button><div class="sample">ILLUSTRATIVE DATA · 640 × 480</div></div>
+  </div>
+ </section>
+ <section id="boardview" class="view hidden" aria-label="Production board close-up">
+  <div class="heading"><h1>The production board</h1><button class="button" id="back-room">← OFFICE</button></div>
+  <div class="subtitle">DALEX SOFTWARE · GAME MILESTONES · SELECT A CARD</div>
+  <div id="largeboard"></div>
+  <div id="boardnote">“Find the game, check the evidence, then take the next step.”<br><small>Mo Greenhalgh · Production</small></div>
+  <div class="bottomline"><span>3 GAMES · DEMO DATA / NOT CONNECTED TO GITHUB</span><button class="button" id="board-demo">DEMO UPDATE</button></div>
+ </section>
+ <section id="ticketview" class="view hidden" aria-label="Milestone ticket detail">
+  <div class="heading"><h1 id="ticket-game"></h1><button class="button" id="back-board">← BOARD</button></div>
+  <div class="subtitle">MILESTONE RECORD · EVIDENCE AND NEXT STEP</div>
+  <article id="ticketpaper"></article>
+  <div class="bottomline"><span>ILLUSTRATIVE TICKET · READ-ONLY VIEW</span><span>ESC · BACK</span></div>
+ </section>
+</div>
+<script>
+const stages=['DESIGN','ASSETS','BUILD','VERIFY','PLAYTEST','FIX','GATE','MEDIA KIT'];
+const short=['DES','ART','BLD','VER','PLAY','FIX','GATE','KIT'];
+const games=[
+ {name:'Mower Mayhem',code:'MM',id:'M6',stage:5,style:'mm',title:'Handling and late-lawn review',health:'Evidence needed',next:'Improve handling, then repeat verification and playtest.',evidence:'Verify report and playtest round pending.'},
+ {name:'Antigravity',code:'AG',id:'M4',stage:2,style:'ag',title:'Extended campaign',health:'In progress',next:'Finish campaign and finale, then run the verification recipes.',evidence:'Build and verification evidence required.'},
+ {name:'Tiger Gorilla',code:'TG',id:'M3',stage:6,style:'tg',title:'Milestone gate',health:'Awaiting verdict',next:'Check milestone acceptance against the recorded evidence.',evidence:'Gate verdict required before completion.'}
+];
+let view='scene',selected=0;
+function el(tag,cls,text){const n=document.createElement(tag);n.className=cls;n.textContent=text;return n}
+function show(name){view=name;for(const n of ['scene','boardview','ticketview'])document.getElementById(n).classList.toggle('hidden',n!==name)}
+function render(){
+ const wall=document.getElementById('wallcolumns'),large=document.getElementById('largeboard');wall.replaceChildren();large.replaceChildren();
+ stages.forEach((s,i)=>{
+  const wc=el('div','wallcol','');wc.append(el('span','wallhead',short[i]));
+  const col=el('div','column','');col.append(el('h2','',s));
+  games.forEach((g,j)=>{if(g.stage!==i)return;
+   const small=el('span','wallcard '+g.style,g.code);small.append(document.createElement('br'),document.createTextNode(g.id));wc.append(small);
+   const card=el('button','card '+g.style,g.name);card.append(el('small','',g.id+' · '+short[i]));card.append(el('small','',g.health));card.onclick=()=>openTicket(j);col.append(card);
+  });wall.append(wc);large.append(col);
+ });
+ if(view==='ticketview')drawTicket();
+}
+function drawTicket(){const g=games[selected];document.getElementById('ticket-game').textContent=g.name;const p=document.getElementById('ticketpaper');p.replaceChildren();
+ p.append(el('div','eyebrow',g.id+' / DEMO MILESTONE'),el('h2','',g.title));
+ const f=el('div','facts','');[['STAGE',stages[g.stage]],['HEALTH',g.health],['REVIEW','No verified score in this demo']].forEach(([k,v])=>f.append(el('b','',k),el('span','',v)));p.append(f);
+ const e=el('div','evidence','');e.append(el('strong','','Evidence'),el('div','',g.evidence),el('div','',g.next));p.append(e);
+ const a=el('a','button','OPEN GITHUB ISSUES ↗');a.id='issue-link';a.href='https://github.com/danielvaughan/spectrum-game-reference/issues';a.target='_blank';a.rel='noopener';p.append(a,el('div','notice','Sample record: no real issue number is assigned.'));
+}
+function openTicket(i){selected=i;show('ticketview');drawTicket();document.getElementById('back-board').focus()}
+function update(){const g=games[0],gate=g.stage===5;g.stage=gate?6:5;g.health=gate?'Awaiting verdict':'Evidence needed';g.evidence=gate?'Verification and playtest submitted in this demo. Gate verdict pending.':'Verify report and playtest round pending.';g.next=gate?'Review the supplied evidence before accepting the milestone.':'Improve handling, then repeat verification and playtest.';document.getElementById('speech').textContent=gate?'“Mower Mayhem is ready for its gate.”':'“Mower Mayhem needs another fix round.”';render()}
+document.getElementById('wall').onclick=()=>{show('boardview');document.getElementById('back-room').focus()};
+document.getElementById('back-room').onclick=()=>{show('scene');document.getElementById('wall').focus()};
+document.getElementById('back-board').onclick=()=>{show('boardview');document.querySelectorAll('.card')[0]?.focus()};
+document.getElementById('demo').onclick=update;document.getElementById('board-demo').onclick=update;
+document.getElementById('mo').onclick=()=>{document.getElementById('sentence').textContent='Talk to Mo';document.getElementById('speech').textContent='“Click the board. I’ll show you where we are.”'};
+document.getElementById('gareth').onclick=()=>{document.getElementById('sentence').textContent='Look at Gareth';document.getElementById('speech').textContent='Gareth’s workstation · typing preview.'};
+document.querySelectorAll('.verb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.verb').forEach(v=>v.classList.toggle('active',v===b));document.getElementById('sentence').textContent=b.textContent==='INVENTORY'?'No carried items in this production view.':b.textContent.toLowerCase().replace(/^./,c=>c.toUpperCase())+'…';});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(view==='ticketview')show('boardview');else show('scene')}});
+const params=new URLSearchParams(location.search);if(params.get('stage')==='gate')update();render();if(params.get('view')==='board')show('boardview');if(params.get('view')==='ticket')openTicket(0);
+function fit(){const s=Math.min(innerWidth/640,innerHeight/480,2);document.getElementById('screen').style.transform='scale('+s+')'}addEventListener('resize',fit);fit();
+</script>
+<script src="game-closeups.js"></script>
+<script src="office-animation.js"></script>
+</html>
