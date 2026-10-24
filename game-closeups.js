@@ -70,7 +70,7 @@ function drawGameViews(){
   if(id==='boardview'){
    pixelText(c,'MILESTONES',289,16,'#3d2c13',1);
    const labels=['DESIGN','ASSETS','BUILD','VERIFY','PLAYTEST','SIGN-OFF','RELEASE','REVIEW'];
-   labels.forEach((t,i)=>{const x=36+i*71;c.fillStyle='#714c2b';c.fillRect(x+69,49,1,245);paper(c,x,49,67,22,'#e4cc97');pixelText(c,t,x+(67-pixelWidth(t))/2,57,'#3c2b1c',1)});
+   labels.forEach((t,i)=>{const x=36+i*71;c.fillStyle='#714c2b';c.fillRect(x+69,49,1,245);paper(c,x,49,67,22,'#e4cc97');i===7?(pixelText(c,'MAGAZINE',x+10,52,'#3c2b1c'),pixelText(c,'REVIEW',x+16,62,'#3c2b1c')):pixelText(c,t,x+(67-pixelWidth(t))/2,57,'#3c2b1c',1)});
    let counts={};games.forEach((g,index)=>{const n=counts[g.stage]||0;counts[g.stage]=n+1;const x=36+g.stage*71,y=84+n*92;
     paper(c,x,y,65,82,({mm:'#eab989',ag:'#bfd1b9',tg:'#d8d59e'})[g.style]);pin(c,x+28,y+2);
     let next=pixelWrap(c,g.name,x+5,y+13,56,'#342b1d',1,10);
@@ -78,7 +78,9 @@ function drawGameViews(){
     pixelWrap(c,g.health,x+5,next+26,56,'#514129',1,10);
    });
    pixelText(c,'REVIEW',49,322,'#63462b',1);pixelText(c,'AIM >90%',49,333,'#63462b',1);
-   pixelText(c,'3 GAMES',518,328,'#63462b',1);
+   pixelText(c,'RELEASE: GAME + MEDIA KIT',160,322,'#63462b');
+   pixelText(c,'THEN INDEPENDENT MAGAZINE REVIEW',160,335,'#63462b');
+   pixelText(c,'SAMPLE BOARD',476,328,'#63462b',1);
    gameFooter(c,false);
   }else{
    const g=games[selected];
@@ -104,7 +106,7 @@ closeArt.onload=drawGameViews;drawGameViews();
 
 // Office and controls use the same native bitmap renderer as the close-ups.
 const officeCanvas=document.createElement('canvas');officeCanvas.width=640;officeCanvas.height=480;officeCanvas.setAttribute('aria-hidden','true');document.getElementById('scene').prepend(officeCanvas);
-const officeArt=new Image();officeArt.src='production-office-art.png?v=room2';
+const officeArt=new Image();officeArt.src='production-office-art.png?v=lounge3';
 function drawOffice(){
  const c=officeCanvas.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#211912';c.fillRect(0,0,640,480);
  if(officeArt.complete&&officeArt.naturalWidth)c.drawImage(officeArt,0,0,640,400);

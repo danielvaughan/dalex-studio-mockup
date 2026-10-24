@@ -43,9 +43,9 @@ drawOffice = function() {
  if(officeMotion && gestureReady) {
   // Interior hand clusters move one native pixel; wrists and keyboard stay fixed.
   const tap = officeTick % 6;
-  if(tap === 1 || tap === 4) c.drawImage(gestureSource, 147, 302, 11, 5, 147, 303, 11, 5);
-  if(tap === 2 || tap === 5) c.drawImage(gestureSource, 193, 306, 10, 4, 193, 305, 10, 4);
-  if(officeTick % 8 === 2) c.drawImage(gestureSource, 162, 212, 7, 3, 162, 213, 7, 3);
+  if(officeTick % 60 < 18 && (tap === 1 || tap === 4)) c.drawImage(gestureSource, 147, 302, 11, 5, 147, 303, 11, 5);
+  if(officeTick % 60 < 18 && (tap === 2 || tap === 5)) c.drawImage(gestureSource, 193, 306, 10, 4, 193, 305, 10, 4);
+  // Rear playtester watches the television; no typing gesture at the old desk.
   // Brief, staggered eyelids over the painted eyes.
   if(officeTick % 37 === 0) { c.fillStyle='#be8060'; c.fillRect(178,240,3,1); c.fillRect(188,241,3,1); }
   if(officeTick % 43 === 12) { c.fillStyle='#cc9473'; c.fillRect(506,189,3,1); c.fillRect(516,189,3,1); }

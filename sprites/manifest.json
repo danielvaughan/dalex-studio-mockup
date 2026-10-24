@@ -172,5 +172,41 @@
       240
     ],
     "palette_entries_max": 25
+  },
+  "playtest-tv": {
+    "canvas": [
+      176,
+      124
+    ],
+    "aperture": [
+      10,
+      10,
+      128,
+      96
+    ],
+    "palette_entries_max": 25,
+    "source_dimensions": [
+      1493,
+      1054
+    ],
+    "reference": "Original generic 1980s wood-cased domestic TV; not a specific hardware model."
+  },
+  "playtest-tv-detail": {
+    "canvas": [
+      380,
+      304
+    ],
+    "aperture": [
+      12,
+      30,
+      320,
+      240
+    ],
+    "palette_entries_max": 25,
+    "source_dimensions": [
+      1493,
+      1054
+    ],
+    "reference": "Original generic 1980s wood-cased domestic TV; not a specific hardware model."
   }
 }
