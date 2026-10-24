@@ -2,7 +2,7 @@
 const shelfCovers = cassetteLibrary.map(g => {const i=new Image();i.src=g.cover;i.onload=()=>drawGameViews();return i});
 const percyArt=new Image();percyArt.src='sprites/percy-strip.png';
 const propSprites={};
-for(const name of ['ledger-closed','ledger-open','cassette-case','cassette-tape']){const i=new Image();i.src='sprites/'+name+'.png';i.onload=()=>drawGameViews();propSprites[name]=i}
+for(const name of ['ledger-closed','ledger-open','cassette-case','cassette-tape','microvitec-cub']){const i=new Image();i.src='sprites/'+name+'.png';i.onload=()=>drawGameViews();propSprites[name]=i}
 function spriteReady(i){return i.complete&&i.naturalWidth}
 let ledgerPage=0, ledgerStale=false, chosenCassette=0, emulator=null, emulatorAPI=null;
 let playerStatus='SELECT A CASSETTE', playerFrames=0, soundEnabled=true, restartArmed=false, loadingToken=0;
@@ -106,14 +106,14 @@ function drawLibrary(c){
 }
 function drawPlayer(c){
  roomBase(c);const g=cassetteLibrary[chosenCassette];
- paper(c,14,43,352,310,'#aaa28c');rect(c,22,64,336,264,'#302c23');rect(c,27,74,326,250,'#090e0a');
+ const monitor=propSprites['microvitec-cub'];if(spriteReady(monitor))c.drawImage(monitor,10,49,360,304);else rect(c,10,49,360,304,'#242420');
  if(emulator?.canvas)c.drawImage(emulator.canvas,30,79,320,240);else pixelWrap(c,playerStatus,45,180,280,'#c4d69a',1,13);
- pixelText(c,'DALEX / SPECTRUM 128',58,338,'#3a372e');rect(c,330,336,5,5,emulator?.isRunning?'#7dbb52':'#78583b');
+ pixelText(c,'MICROVITEC CUB / 14-INCH RGB',30,360,'#e0c997');
  paper(c,384,44,240,340,'#decda3');pixelWrap(c,g.title,398,59,214,'#40301e',2,19);
  pixelText(c,g.milestone+' / '+g.sha256.slice(0,8),398,106,'#795638');pixelText(c,'KEYBOARD CONTROLS',398,126,'#795638');
  let y=143;g.controls.slice(0,9).forEach(([key,meaning])=>{pixelText(c,key,398,y,'#463522');y=pixelWrap(c,meaning,398,y+10,207,'#79613f',1,10)+5});
  pixelText(c,'ESC: BACK TO CASSETTES',398,365,'#604b2c');
- pixelWrap(c,playerStatus,30,367,331,'#e0c997',1,11);
+ pixelWrap(c,playerStatus,30,373,331,'#e0c997',1,11);
  pixelText(c,g.id==='tiger-gorilla'?'TITLE: 2 KEYBOARD, THEN SPACE':'TITLE: SPACE TO START',30,385,'#c7b387');
  footer(c,emulator?.isRunning?'PLAYING - CLICK PICTURE TO FOCUS KEYS':'PAUSED / USE PLAY TO RESUME',[[emulator?.isRunning?'PAUSE':'PLAY',10,146],[soundEnabled?'SOUND ON':'SOUND OFF',168,146],[restartArmed?'CONFIRM?':'RESTART',326,146],['BACK',484,146]]);
 }

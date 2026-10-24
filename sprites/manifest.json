@@ -122,5 +122,38 @@
     "normalization": "Equal source grid to fixed 40x32 cells; no per-frame recentering.",
     "timing_ms": 140,
     "runtime": "Browser only; SCUMM costume compilation pending."
+  },
+  "microvitec-cub": {
+    "canvas": [
+      360,
+      304
+    ],
+    "aperture": [
+      20,
+      30,
+      320,
+      240
+    ],
+    "source_dimensions": [
+      1366,
+      1152
+    ],
+    "source_slices": {
+      "x": [
+        0,
+        180,
+        1200,
+        1366
+      ],
+      "y": [
+        0,
+        215,
+        935,
+        1152
+      ]
+    },
+    "palette_entries_max": 25,
+    "reference": "Microvitec Cub 1431-MS 14-inch RGB; reference photo from retrorepairsandrefurbs.com (not redistributed).",
+    "room_view": "Existing rear computer remains painted; close-up uses this sprite."
   }
 }

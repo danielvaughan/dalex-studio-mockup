@@ -17,7 +17,7 @@ A native 640 × 480 adventure-style interface for a 1987 Manchester games studio
 ## Native assets
 
 All visible text and controls render into a 640 × 480 canvas using bitmap glyphs.
-The complete bordered JSSpeccy picture is 320 × 240, shown without cropping.
+The complete bordered JSSpeccy picture is 320 × 240, shown without cropping inside a Microvitec Cub 14-inch RGB monitor sprite (360 × 304).
 Percy's cells are 40 × 32; ledger states 64 × 40; cassette cases 24 × 40; loose tape 56 × 32.
 See `sprites/manifest.json` for sizes and palette limits, and `library/manifest.json` for game/art provenance.
 Generated scenery remains concept art; this is not a compiled ScummVM game or a verified indexed room palette.
