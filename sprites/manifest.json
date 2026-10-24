@@ -1,0 +1,126 @@
+{
+  "ledger-closed": {
+    "canvas": [
+      64,
+      40
+    ],
+    "anchor": [
+      32,
+      38
+    ],
+    "source_crop": [
+      0,
+      0,
+      720,
+      496
+    ],
+    "opaque_bounds": [
+      11,
+      6,
+      53,
+      38
+    ],
+    "palette_entries_max": 25
+  },
+  "ledger-open": {
+    "canvas": [
+      64,
+      40
+    ],
+    "anchor": [
+      32,
+      38
+    ],
+    "source_crop": [
+      720,
+      0,
+      1586,
+      496
+    ],
+    "opaque_bounds": [
+      2,
+      14,
+      61,
+      38
+    ],
+    "palette_entries_max": 25
+  },
+  "cassette-case": {
+    "canvas": [
+      24,
+      40
+    ],
+    "anchor": [
+      12,
+      38
+    ],
+    "source_crop": [
+      0,
+      496,
+      793,
+      992
+    ],
+    "opaque_bounds": [
+      2,
+      9,
+      22,
+      38
+    ],
+    "palette_entries_max": 25
+  },
+  "cassette-tape": {
+    "canvas": [
+      56,
+      32
+    ],
+    "anchor": [
+      28,
+      30
+    ],
+    "source_crop": [
+      793,
+      496,
+      1586,
+      992
+    ],
+    "opaque_bounds": [
+      2,
+      2,
+      54,
+      30
+    ],
+    "palette_entries_max": 25
+  },
+  "percy": {
+    "canvas": [
+      40,
+      32
+    ],
+    "anchor": [
+      20,
+      30
+    ],
+    "frames": [
+      "walk-contact",
+      "walk-pass",
+      "walk-opposite",
+      "walk-pass-2",
+      "sit",
+      "blink",
+      "sleep",
+      "stretch"
+    ],
+    "palette_entries_max": 17,
+    "source_grid": [
+      4,
+      2
+    ],
+    "source_dimensions": [
+      1983,
+      793
+    ],
+    "normalization": "Equal source grid to fixed 40x32 cells; no per-frame recentering.",
+    "timing_ms": 140,
+    "runtime": "Browser only; SCUMM costume compilation pending."
+  }
+}

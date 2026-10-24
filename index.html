@@ -94,12 +94,12 @@ h1{font:bold 21px Georgia,serif;margin:0;color:#f0dca7}.subtitle{font-size:9px;c
  </section>
 </div>
 <script>
-const stages=['DESIGN','ASSETS','BUILD','VERIFY','PLAYTEST','FIX','GATE','MEDIA KIT'];
-const short=['DES','ART','BLD','VER','PLAY','FIX','GATE','KIT'];
+const stages=['DESIGN','ASSETS','BUILD','VERIFY','PLAYTEST','SIGN-OFF','RELEASE','MAGAZINE REVIEW'];
+const short=['DES','ART','BLD','VER','PLAY','SIGN','SHIP','REV'];
 const games=[
- {name:'Mower Mayhem',code:'MM',id:'M6',stage:5,style:'mm',title:'Handling and late-lawn review',health:'Evidence needed',next:'Improve handling, then repeat verification and playtest.',evidence:'Verify report and playtest round pending.'},
+ {name:'Mower Mayhem',code:'MM',id:'M6',stage:4,style:'mm',title:'Handling and late-lawn review',health:'Evidence needed',next:'Improve handling, then repeat verification and playtest.',evidence:'Verify report and playtest round pending.'},
  {name:'Antigravity',code:'AG',id:'M4',stage:2,style:'ag',title:'Extended campaign',health:'In progress',next:'Finish campaign and finale, then run the verification recipes.',evidence:'Build and verification evidence required.'},
- {name:'Tiger Gorilla',code:'TG',id:'M3',stage:6,style:'tg',title:'Milestone gate',health:'Awaiting verdict',next:'Check milestone acceptance against the recorded evidence.',evidence:'Gate verdict required before completion.'}
+ {name:'Tiger Gorilla',code:'TG',id:'M4',stage:5,style:'tg',title:'Production sign-off',health:'Awaiting verdict',next:'Check milestone acceptance against the recorded evidence.',evidence:'Sign-off required before release with media kit.'}
 ];
 let view='scene',selected=0;
 function el(tag,cls,text){const n=document.createElement(tag);n.className=cls;n.textContent=text;return n}
@@ -123,7 +123,7 @@ function drawTicket(){const g=games[selected];document.getElementById('ticket-ga
  const a=el('a','button','OPEN GITHUB ISSUES ↗');a.id='issue-link';a.href='https://github.com/danielvaughan/spectrum-game-reference/issues';a.target='_blank';a.rel='noopener';p.append(a,el('div','notice','Sample record: no real issue number is assigned.'));
 }
 function openTicket(i){selected=i;show('ticketview');drawTicket();document.getElementById('back-board').focus()}
-function update(){const g=games[0],gate=g.stage===5;g.stage=gate?6:5;g.health=gate?'Awaiting verdict':'Evidence needed';g.evidence=gate?'Verification and playtest submitted in this demo. Gate verdict pending.':'Verify report and playtest round pending.';g.next=gate?'Review the supplied evidence before accepting the milestone.':'Improve handling, then repeat verification and playtest.';document.getElementById('speech').textContent=gate?'“Mower Mayhem is ready for its gate.”':'“Mower Mayhem needs another fix round.”';render()}
+function update(){const g=games[0],ready=g.stage===4;g.stage=ready?5:4;g.health=ready?'Awaiting sign-off':'Fix needed';g.evidence=ready?'Verification and playtest submitted in this demo.':'Playtest findings need another work round.';g.next=ready?'Sign off this build before release with its media kit.':'Resolve findings, then repeat affected checks.';document.getElementById('speech').textContent=ready?'Mower Mayhem is ready for sign-off.':'Mower Mayhem needs more playtest work.';render()}
 document.getElementById('wall').onclick=()=>{show('boardview');document.getElementById('back-room').focus()};
 document.getElementById('back-room').onclick=()=>{show('scene');document.getElementById('wall').focus()};
 document.getElementById('back-board').onclick=()=>{show('boardview');document.querySelectorAll('.card')[0]?.focus()};
@@ -133,8 +133,11 @@ document.getElementById('gareth').onclick=()=>{document.getElementById('sentence
 document.querySelectorAll('.verb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.verb').forEach(v=>v.classList.toggle('active',v===b));document.getElementById('sentence').textContent=b.textContent==='INVENTORY'?'No carried items in this production view.':b.textContent.toLowerCase().replace(/^./,c=>c.toUpperCase())+'…';});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(view==='ticketview')show('boardview');else show('scene')}});
 const params=new URLSearchParams(location.search);if(params.get('stage')==='gate')update();render();if(params.get('view')==='board')show('boardview');if(params.get('view')==='ticket')openTicket(0);
-function fit(){const s=Math.min(innerWidth/640,innerHeight/480,2);document.getElementById('screen').style.transform='scale('+s+')'}addEventListener('resize',fit);fit();
+function fit(){const available=Math.min(innerWidth/640,innerHeight/480);const s=available>=1?Math.floor(available):available;document.getElementById('screen').style.transform='scale('+s+')'}addEventListener('resize',fit);fit();
 </script>
 <script src="game-closeups.js"></script>
 <script src="office-animation.js"></script>
+<script src="library-data.js"></script>
+<script src="jsspeccy/jsspeccy.js"></script>
+<script src="studio-features.js"></script>
 </html>

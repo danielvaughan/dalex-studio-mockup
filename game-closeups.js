@@ -36,6 +36,7 @@ const closeupFont={
 '7':['11111','00001','00010','00100','01000','01000','01000'],
 '8':['01110','10001','10001','01110','10001','10001','01110'],
 '9':['01110','10001','10001','01111','00001','00001','01110'],
+',':['00','00','00','00','00','01','01','10'],
 '.':['0','0','0','0','0','1','1'],':':['0','1','1','0','1','1','0'],
 '-':['000','000','000','111','000','000','000'],
 '/':['00001','00001','00010','00100','01000','10000','10000'],
@@ -68,7 +69,7 @@ function drawGameViews(){
   if(closeArt.complete&&closeArt.naturalWidth)c.drawImage(closeArt,0,0,640,400);else{c.fillStyle='#a67648';c.fillRect(0,0,640,400)}
   if(id==='boardview'){
    pixelText(c,'MILESTONES',289,16,'#3d2c13',1);
-   const labels=['DESIGN','ASSETS','BUILD','VERIFY','PLAYTEST','FIX','GATE','MEDIA KIT'];
+   const labels=['DESIGN','ASSETS','BUILD','VERIFY','PLAYTEST','SIGN-OFF','RELEASE','REVIEW'];
    labels.forEach((t,i)=>{const x=36+i*71;c.fillStyle='#714c2b';c.fillRect(x+69,49,1,245);paper(c,x,49,67,22,'#e4cc97');pixelText(c,t,x+(67-pixelWidth(t))/2,57,'#3c2b1c',1)});
    let counts={};games.forEach((g,index)=>{const n=counts[g.stage]||0;counts[g.stage]=n+1;const x=36+g.stage*71,y=84+n*92;
     paper(c,x,y,65,82,({mm:'#eab989',ag:'#bfd1b9',tg:'#d8d59e'})[g.style]);pin(c,x+28,y+2);
