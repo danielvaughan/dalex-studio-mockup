@@ -106,7 +106,7 @@ closeArt.onload=drawGameViews;drawGameViews();
 
 // Office and controls use the same native bitmap renderer as the close-ups.
 const officeCanvas=document.createElement('canvas');officeCanvas.width=640;officeCanvas.height=480;officeCanvas.setAttribute('aria-hidden','true');document.getElementById('scene').prepend(officeCanvas);
-const officeArt=new Image();officeArt.src='production-office-art.png?v=lounge3';
+const officeArt=new Image();officeArt.src='production-office-art.png?v=native1';
 function drawOffice(){
  const c=officeCanvas.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#211912';c.fillRect(0,0,640,480);
  if(officeArt.complete&&officeArt.naturalWidth)c.drawImage(officeArt,0,0,640,400);

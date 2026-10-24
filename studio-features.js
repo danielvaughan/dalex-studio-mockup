@@ -1,9 +1,9 @@
 /* Native-pixel UI extensions. JSSpeccy is a browser prototype, not a SCUMM opcode. */
-const shelfCovers = cassetteLibrary.map(g => {const i=new Image();i.src=g.cover+'?v=lounge3';i.onload=()=>drawGameViews();return i});
-const roomPreviews=cassetteLibrary.map(g=>{const i=new Image();i.src=g.preview+'?v=lounge3';i.onload=()=>drawGameViews();return i});
-const percyArt=new Image();percyArt.src='sprites/percy-strip.png?v=lounge3';
+const shelfCovers = cassetteLibrary.map(g => {const i=new Image();i.src=g.cover+'?v=native1';i.onload=()=>drawGameViews();return i});
+const roomPreviews=cassetteLibrary.map(g=>{const i=new Image();i.src=g.preview+'?v=native1';i.onload=()=>drawGameViews();return i});
+const percyArt=new Image();percyArt.src='sprites/percy-strip.png?v=native1';
 const propSprites={};
-for(const name of ['ledger-closed','ledger-open','cassette-case','cassette-tape','microvitec-cub','microvitec-cub-room','playtest-tv','playtest-tv-detail']){const i=new Image();i.src='sprites/'+name+'.png?v=lounge3';i.onload=()=>drawGameViews();propSprites[name]=i}
+for(const name of ['ledger-closed','ledger-open','cassette-case','cassette-tape','microvitec-cub','microvitec-cub-room','playtest-tv','playtest-tv-detail']){const i=new Image();i.src='sprites/'+name+'.png?v=native1';i.onload=()=>drawGameViews();propSprites[name]=i}
 function spriteReady(i){return i.complete&&i.naturalWidth}
 let playerHousing='tv';
 let ledgerPage=0, ledgerStale=false, chosenCassette=0, emulator=null, emulatorAPI=null;
@@ -37,7 +37,7 @@ function openFeature(name){show(name);featureControls[name].querySelector('butto
 hotspot(document.getElementById('scene'),'cassette-shelf','Look at the cassette shelf',89,78,33,96,()=>openFeature('libraryview'));
 hotspot(document.getElementById('scene'),'accounts-ledger','Open Ken\'s accounts ledger',529,322,64,40,()=>openFeature('ledgerview'));
 hotspot(document.getElementById('scene'),'computer-screen',"Look at Gareth's Cub monitor",5,268,82,70,()=>startCassette(chosenCassette,false,'cub'));
-hotspot(document.getElementById('scene'),'playtest-tv','Look at the playtest television',124,44,176,124,()=>startCassette(chosenCassette,false,'tv'));
+hotspot(document.getElementById('scene'),'playtest-tv','Look at the playtest television',133,98,88,66,()=>startCassette(chosenCassette,false,'tv'));
 const percyButton=hotspot(document.getElementById('scene'),'percy-cat','Look at Percy the office cat',340,355,35,30,()=>openFeature('percyview'));
 cassetteLibrary.forEach((g,i)=>hotspot(featureControls.libraryview,'cassette-'+g.id,'Play '+g.title,51+i*184,68,164,278,()=>startCassette(i,false,'tv')));
 hotspot(featureControls.libraryview,'library-back','Go back to office',222,430,196,28,()=>show('scene'));
@@ -156,15 +156,15 @@ drawOffice=function(){
  const ledger=propSprites[pixelHover?.id==='accounts-ledger'?'ledger-open':'ledger-closed'];if(spriteReady(ledger))c.drawImage(ledger,529,322,64,40);
  const tape=propSprites['cassette-tape'];if(spriteReady(tape))c.drawImage(tape,234,334,56,32);
  const monitor=propSprites['microvitec-cub-room'];if(spriteReady(monitor))c.drawImage(monitor,5,268,82,70);
- const television=propSprites['playtest-tv'];if(spriteReady(television))c.drawImage(television,124,44,176,124);
+ const television=propSprites['playtest-tv'];if(spriteReady(television))c.drawImage(television,133,98,88,66);
  const preview=emulator?.canvas||roomPreviews[chosenCassette];
  function picture(x,y,w,h){if(preview&&(preview.tagName==='CANVAS'||spriteReady(preview))){
   const pw=preview.width||preview.naturalWidth,ph=preview.height||preview.naturalHeight;
   const scale=Math.min(w/pw,h/ph),dw=Math.floor(pw*scale),dh=Math.floor(ph*scale);
   rect(c,x,y,w,h,'#000');c.drawImage(preview,x+Math.floor((w-dw)/2),y+Math.floor((h-dh)/2),dw,dh);
  }}
- picture(134,54,128,96);picture(10,276,72,54);
- pixelText(c,emulator?'LAST FRAME':'KIT SCREENSHOT',126,164,'#e8d1a0');
+ picture(138,103,64,48);picture(10,276,72,54);
+ pixelText(c,emulator?'LAST FRAME':'KIT SCREENSHOT',127,170,'#e8d1a0');
  const step=officeMotion?officeTick%140:50;
  const walking=step<25||(step>=70&&step<95),left=step>=70;
  const x=step<25?330+step*2:step<70?378:step<95?378-(step-70)*2:330;
